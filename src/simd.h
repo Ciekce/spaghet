@@ -10,6 +10,8 @@
 using vepi16 = __m512i;
 using vepi32 = __m512i;
 
+constexpr int simd_alignment = 64;
+
 inline vepi16 zero_epi16() { return _mm512_setzero_si512(); }
 inline vepi32 zero_epi32() { return _mm512_setzero_si512(); }
 inline vepi16 load_epi16(const int16_t *memory_address) { return _mm512_load_si512(reinterpret_cast<const __m512i *>(memory_address)); }
@@ -31,6 +33,8 @@ inline int reduce_add_epi32(vepi32 v) { return _mm512_reduce_add_epi32(v); }
 #elif defined(USE_AVX2)
 using vepi16 = __m256i;
 using vepi32 = __m256i;
+
+constexpr int simd_alignment = 32;
 
 inline vepi16 zero_epi16() { return _mm256_setzero_si256(); }
 inline vepi32 zero_epi32() { return _mm256_setzero_si256(); }
